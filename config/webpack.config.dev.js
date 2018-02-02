@@ -11,6 +11,7 @@ const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
+const colors = require('./theme-color');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -142,6 +143,9 @@ module.exports = {
             include: paths.appSrc,
             loader: require.resolve("babel-loader"),
             options: {
+              plugins: [
+                ["import", [{ libraryName: "antd", style: true }]] // style: true 加载less, 'css'
+              ],
               // This is a feature of `babel-loader` for webpack (not Babel itself).
               // It enables caching results in ./node_modules/.cache/babel-loader/
               // directory for faster rebuilds.
@@ -184,7 +188,10 @@ module.exports = {
                 }
               },
               {
-                loader: require.resolve('less-loader')  // Compils Less to CSS
+                loader: require.resolve("less-loader"), // Compils Less to CSS
+                options: {
+                  modifyVars: colors
+                }
               }
             ]
           },
