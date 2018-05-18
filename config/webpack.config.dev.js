@@ -68,6 +68,13 @@ module.exports = {
     devtoolModuleFilenameTemplate: info =>
       path.resolve(info.absoluteResourcePath).replace(/\\/g, "/")
   },
+  externals: {
+    // 第三方库 不打包进主体文件，需要在index.html 中引入
+    'react': "React",
+    "react-dom": "ReactDOM",
+    "react-router-dom": "ReactRouterDOM",
+    "core-js": "core-js"
+  },
   resolve: {
     // This allows you to set a fallback for where Webpack should look for modules.
     // We placed these paths second because we want `node_modules` to "win"
